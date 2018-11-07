@@ -1,0 +1,64 @@
+<!--pages/tianzi/tianzi.wxml-->
+<!--wxml-->
+
+<view class="page">
+<view class="title">得分：200</view>
+<view class="box">
+
+  <view class="box-row" wx:for="{{[0,1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="i">
+      <block wx:for="{{[0,1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="j">
+          <view wx:if="{{qipan[i*10+j]==''}}" class="box-item" >{{}}</view> 
+          <view wx:elif="{{zimi[qipan[i*10+j].zimi_index].jiejue||zimi[qipan[i*10+j].zimi_index1].jiejue}}" class="{{qipan[i*10+j].css_class}}" >
+          <text class="range_text" wx:if="{{zimi[qipan[i*10+j].zimi_index].zongheng==1}}">{{zimi[qipan[i*10+j].zimi_index].midi[i*10+j-zimi[qipan[i*10+j].zimi_index].zb]}} </text> 
+          <text class="range_text" wx:else>{{zimi[qipan[i*10+j].zimi_index].midi[(i*10+j-zimi[qipan[i*10+j].zimi_index].zb)/10]}} </text>          
+          </view> 
+          <view wx:else class="{{qipan[i*10+j].css_class}}" data-zb="{{i*10+j}}"  bindtap="choose_range"></view> 
+      </block>
+  </view>
+</view>
+
+<view wx:if="{{question_show}}">
+<view class="question-title" >横向</view>
+  <scroll-view class="question" scroll-y  scroll-into-view="{{toView}}" >
+    <block  wx:for="{{zimi}}" wx:for-index="idx" wx:for-item="itemName">
+    <view wx:if="{{zimi[idx].zongheng==1&&!zimi[idx].jiejue}}" id="i_{{idx}}"  data-index="{{idx}}"  bindtap="choose_question"><text  wx:if="{{toView=='i_'+idx}}" class="question_glxs">{{idx}},{{itemName.question}}</text>
+    <text  wx:else class="question-text">{{idx}}, {{itemName.question}}</text>
+    </view>
+    </block>
+  </scroll-view>
+  <view class="question-title">纵向</view>
+  <scroll-view  class="question" scroll-y  scroll-into-view="{{toView}}" >
+    <block  wx:for="{{zimi}}" wx:for-index="idx" wx:for-item="itemName">
+    <view wx:if="{{zimi[idx].zongheng==0&&!zimi[idx].jiejue}}" id="i_{{idx}}"   data-index="{{idx}}"  bindtap="choose_question"><text  wx:if="{{toView=='i_'+idx}}" class="question_glxs">{{idx}},{{itemName.question}}</text>
+    <text  wx:else class="question-text">{{idx}}, {{itemName.question}}</text>
+    </view>
+    </block>
+  </scroll-view>
+</view>
+
+
+<view class="input-box" wx:else>
+  <view class="input-row">
+  <view class="input-item" wx:for="{{zimi[dqzimi_index].midi}}" wx:for-index="idx" wx:for-item="itemName" data-key="{{idx}}" bindtap="set_input_force"><view wx:if="{{force_index==idx}}" class="input-item-blink" >{{answer[idx]}}</view>
+  <view wx:else>{{answer[idx]}}</view>
+   </view> 
+  </view>
+  
+<view class="input-question">{{zimi[dqzimi_index].question}}</view> 
+  
+<view class="jianpan">
+<view class="jianpan-row" ><view wx:for="{{['Q','W','E','R','T','Y','U','I','O','P']}}" class="zimu" data-key="{{item}}"  bindtap="tapzimu">{{item}}</view></view>
+<view class="jianpan-row" ><view wx:for="{{['A','S','D','F','G','H','J','K','L']}}" class="zimu" data-key="{{item}}"  bindtap="tapzimu">{{item}}</view></view>
+<view class="jianpan-row" ><view wx:for="{{['Z','X','C','V','B','N','M']}}" class="zimu" data-key="{{item}}"  bindtap="tapzimu">{{item}}</view>
+<view class="gongneng" data-key="backspace"  bindtap="tapzimu">后退</view>
+</view>
+<view class="jianpan-row" >
+<view  class="gongneng" data-key="back"  bindtap="tapzimu">返回</view>
+<view wx:for="{{['Sh','Ch','Zh']}}" class="zimu" data-key="{{item}}"  bindtap="tapzimu">{{item}}</view>
+<view  class="gongneng" data-key="cancel"  bindtap="tapzimu">取消</view>
+<view  class="gongneng" data-key="ok"  bindtap="tapzimu">确定</view>
+</view>
+</view>
+
+</view>
+</view>
