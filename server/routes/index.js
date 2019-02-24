@@ -47,9 +47,12 @@ router.get('/tianzi_list/:source', controllers.tianzi_list)
 router.get('/question/:id', controllers.question.get)
 router.post('/question', controllers.question.post)
 router.post('/question_delete', controllers.question_delete)
-
-router.get('/question_list', controllers.question_list)
 router.post('/question_add', controllers.question_add)
+
+router.get('/question_list/:tags', controllers.question_list)
+router.get('/question_list', controllers.question_list)
+
+
 
 router.get('/tags_list', controllers.tags_list)
 router.post('/tag_add', controllers.tag_add)
