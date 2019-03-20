@@ -32,8 +32,11 @@ router.get('/message', controllers.message.get)
 // POST 用来处理微信转发过来的客服消息
 router.post('/message', controllers.message.post)
 
-router.get('/tianzi/:id', controllers.tianzi)
-router.get('/tianzi', controllers.tianzi)
+router.get('/tianzi_http/:id', controllers.tianzi_http)
+router.get('/tianzi_http', controllers.tianzi_http)
+
+router.get('/tianzi_model/:id', controllers.tianzi_model.get)
+router.post('/tianzi_model/:id', controllers.tianzi_model.post)
 
 
 router.get('/tianzi_tmp/:id', controllers.tianzi_tmp.get)
@@ -42,7 +45,7 @@ router.post('/tianzi_tmp/:id', controllers.tianzi_tmp.post)
 router.post('/tianzi_add', controllers.tianzi_add)
 router.post('/tianzi_delete', controllers.tianzi_delete)
 
-router.get('/tianzi_list/:source', controllers.tianzi_list)
+router.get('/tianzi_list', controllers.tianzi_list)
 
 router.get('/question/:id', controllers.question.get)
 router.post('/question', controllers.question.post)
