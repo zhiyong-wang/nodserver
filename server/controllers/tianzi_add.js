@@ -13,7 +13,7 @@ async function tianzi_add(ctx, next) {
   for (zimi of zimis) {
    // console.log(addzimiid);
     await zimimysql(table)
-      .insert({ midi: zimi.midi, question: zimi.question, answer: zimi.answer, zb: zimi.zb, zongheng: zimi.zongheng, midi_length: zimi.midi_length, zimi_id: addzimiid + 1 })
+      .insert({ midi: zimi.midi, question: zimi.question, answer: zimi.answer, zb: zimi.zb, zongheng: zimi.zongheng, midi_length: zimi.midi_length,difficulty:zimi.difficulty,clarity:zimi.clarity,zimi_id: addzimiid + 1 })
   }
 }
 module.exports = tianzi_add
