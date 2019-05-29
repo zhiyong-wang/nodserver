@@ -22,7 +22,7 @@ var config = {
         // 上传图片接口
         uploadUrl: `http://${host}:5757/weapp/upload`,
 
-        tianziUrl: `http://${host}:5757/weapp/tianzi`,
+        tianziUrl: `http://${host}:5757/weapp/tianzi_http`,
 
     }
 };

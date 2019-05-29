@@ -5,7 +5,6 @@ async function question_list(ctx, next) {
    let page=Number(ctx.request.query.page)
    let peritem=Number(ctx.request.query.peritem)
    let searchItem=(ctx.request.query.searchItem==""?"%":ctx.request.query.searchItem)
-   console.log(searchItem);
   
   if (select_tag) {
 

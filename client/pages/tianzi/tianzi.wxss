@@ -1,6 +1,6 @@
 /* pages/tianzi.wxss */
 .page{
- background-image:url(back.jpg);
+/* background-image:url(back.jpg);*/
  border-collapse:  collapse;
  justify-content: center;
 }
@@ -20,7 +20,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 300px;
+  height:650rpx;
 
   border-collapse:  collapse;
 }
@@ -29,8 +29,8 @@
   flex-direction: row;
 }
 .box-item{
-  width:25px;
-  height:25px;
+  width:60rpx;
+  height:60rpx;
   background-color: black;
   border-width:  1px;
   margin-right:-1px;
@@ -43,8 +43,8 @@
   display: flex;
   justify-content: center;
   align-items:center; 
-  width:25px;
-  height:25px;
+  width:60rpx;
+  height:60rpx;
   background-color:   silver;
   border-width:  1px;
   margin-right:-1px;
@@ -56,8 +56,8 @@
 }
 .box-item2{
   display: flex;
-  width:25px;
-  height:25px;  
+  width:60rpx;
+  height:60rpx;  
   border-width: 1px;
   margin-right:-1px;
   margin-bottom:-1px;
@@ -75,7 +75,7 @@
  
 }
 .question-title{
-  height: 15px;
+  height: 30rpx;
   font-size:16px;
   color:   dimgray;
   padding-left: 10px;
@@ -84,7 +84,7 @@
 .question{
   display: flex;
   flex-direction: column;
-  height: 120px;
+  height: 240rpx;
   padding:5px;
   border-bottom-width:1px; 
   border-bottom-color:  darkgray;

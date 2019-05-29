@@ -251,7 +251,7 @@ requestZimi:function(){
   let zimi;
   new Promise((resolve, reject) => {
     wx.request({
-      url: config.service.tianziUrl,
+      url: config.service.tianziUrl+"/-1",
       success: function (res) {
         console.log(res);
         resolve(res.data.data);
