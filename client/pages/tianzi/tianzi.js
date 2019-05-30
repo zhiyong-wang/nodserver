@@ -249,16 +249,14 @@ choose_question:function(event){
 
 requestZimi:function(){
   let zimi;
-  new Promise((resolve, reject) => {
-    wx.request({
-      url: config.service.tianziUrl+"/-1",
-      success: function (res) {
-        console.log(res);
-        resolve(res.data.data);
-      }
-    })
-  }).then(result => {
-    zimi = result;
+  wx.cloud.init({
+    env: 'tianzi'
+  })
+  const db = wx.cloud.database()
+  db.collection('tianzi').doc('5cebea3ce7d612d0f0a362c1')
+  .get().then(res => {
+    console.log(res.data)
+    zimi = res.data.data;
     for (let i = 0; i < zimi.length; i++) {
       zimi[i].jiejue = false;
     }
