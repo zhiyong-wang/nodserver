@@ -12,28 +12,33 @@
           <text class="range_text" wx:if="{{zimi[qipan[i*10+j].zimi_index].zongheng==1}}">{{zimi[qipan[i*10+j].zimi_index].midi[i*10+j-zimi[qipan[i*10+j].zimi_index].zb]}} </text> 
           <text class="range_text" wx:else>{{zimi[qipan[i*10+j].zimi_index].midi[(i*10+j-zimi[qipan[i*10+j].zimi_index].zb)/10]}} </text>          
           </view> 
-          <view wx:else class="{{qipan[i*10+j].css_class}}" data-zb="{{i*10+j}}"  bindtap="choose_range"></view> 
+          <view wx:else class="{{qipan[i*10+j].css_class}}" data-zb="{{i*10+j}}"  bindtap="choose_range"   bindlongpress="longpress_range"></view> 
       </block>
   </view>
 </view>
 
 <view wx:if="{{question_show}}">
 <view class="question-title" >横向</view>
-  <scroll-view class="question" scroll-y  scroll-into-view="{{toView}}" >
-    <block  wx:for="{{zimi}}" wx:key="*this" wx:for-index="idx" wx:for-item="itemName">
-    <view wx:if="{{zimi[idx].zongheng==1&&!zimi[idx].jiejue}}" id="i_{{idx}}"  data-index="{{idx}}"  bindtap="choose_question"><text  wx:if="{{toView=='i_'+idx}}" class="question_glxs">{{idx}},{{itemName.question}}</text>
-    <text  wx:else class="question-text">{{idx}}, {{itemName.question}}</text>
+ <picker-view  class="question" indicator-class="question-text" value="{{value_h}}" bindchange="bindChange_h">
+    <picker-view-column>
+    <view wx:for="{{question_h}}"  wx:key="*this" style="line-height:50rpx" bindtap="choose_question" data-key="{{item}}">
+    <text  wx:if="{{item.zimi_index==dqzimi_index}}" class="question-glxs">{{item.zimi_index}}.{{item.detail}}</text>
+    <text  wx:else class="question-text">{{item.zimi_index}}. {{item.detail}}</text>
     </view>
-    </block>
-  </scroll-view>
+
+    </picker-view-column>
+  </picker-view>
+
   <view class="question-title">纵向</view>
-  <scroll-view  class="question" scroll-y  scroll-into-view="{{toView}}" >
-    <block  wx:for="{{zimi}}" wx:key="*this" wx:for-index="idx" wx:for-item="itemName">
-    <view wx:if="{{zimi[idx].zongheng==0&&!zimi[idx].jiejue}}" id="i_{{idx}}"   data-index="{{idx}}"  bindtap="choose_question"><text  wx:if="{{toView=='i_'+idx}}" class="question_glxs">{{idx}},{{itemName.question}}</text>
-    <text  wx:else class="question-text">{{idx}}, {{itemName.question}}</text>
+ <picker-view  class="question" indicator-class="question-text" value="{{value_z}}" bindchange="bindChange_z" >
+    <picker-view-column>
+    <view wx:for="{{question_z}}"  wx:key="*this" style="line-height:50rpx" bindtap="choose_question" data-key="{{item}}" >
+    <text  wx:if="{{item.zimi_index==dqzimi_index}}" class="question-glxs"  >{{item.zimi_index}}.{{item.detail}}</text>
+    <text  wx:else class="question-text">{{item.zimi_index}}. {{item.detail}}</text>
     </view>
-    </block>
-  </scroll-view>
+
+    </picker-view-column>
+  </picker-view>
 </view>
 
 

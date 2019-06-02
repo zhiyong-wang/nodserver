@@ -11,11 +11,33 @@ Page({
     zimi: [],
     qipan: [100],
     question_show:true,
+    question_h:[],
+    question_z:[],
     answer:[],
     dqzimi_index:0,   //当前操作的字谜索引
-    toview:"i_0",
-    force_index: 0  //input处焦点的索引
+    toView:0,
+    force_index: 0,  //input处焦点的索引
+    value:[0]
   },
+
+  bindChange_h: function (e) {
+    var question_index = e.detail.value //选择的字谜索引
+    let index=this.data.question_h[question_index].zimi_index
+      this.question_glxs(index);
+      this.range_glxs(index);
+      this.setData({ "dqzimi_index": index })
+
+  },
+  bindChange_z: function (e) {
+    var question_index = e.detail.value 
+    var index = this.data.question_z[question_index].zimi_index //选择的字谜索引
+    this.question_glxs(index);
+    this.range_glxs(index);
+    this.setData({ "dqzimi_index": index })
+
+  },
+
+
 
 //--下面的 setzimi 函数，接受若干的数组，按照字谜坐标把字谜放入表格中-- >
   setZimi : function (zimi) {
@@ -32,9 +54,11 @@ Page({
               zimi_index1: -1,
               css_class: "box-item1"
             };
-            }        
+            }  
+        this.data.hx_length = i+1
       }
       else {
+       
         let zb = Number(zimi[i].zb);
         for (let j = zb,k=0; k < zimi[i].midi.length; j=j+10 , k++) {
           if (qipan[j] == "") {
@@ -53,7 +77,23 @@ Page({
 
     this.setData({ "qipan": qipan }); 
     this.setData({ "zimi": zimi });
-     for (let j = 0; j < this.data.zimi.length; j++) {
+    let question_h=[]
+    let question_z=[]    
+    for (let j = 0; j < this.data.zimi.length; j++) {
+      if (this.data.zimi[j].zongheng == 1 && !this.data.zimi[j].jiejue) {
+        question_h.push({"detail":this.data.zimi[j].question,"zimi_index":j});       
+      }
+      else {
+        if (!this.data.zimi[j].jiejue){
+        question_z.push({ "detail": this.data.zimi[j].question, "zimi_index": j }); 
+      }
+      }
+    } 
+    this.setData({"question_h": question_h,
+                    "question_z":question_z})
+
+    
+    for (let j = 0; j < this.data.zimi.length; j++) {
       if (!this.data.zimi[j].jiejue) {
         this.setData({ "dqzimi_index": j });
         this.range_glxs(j);                                //高亮显示选中的字迷
@@ -67,7 +107,7 @@ Page({
   choose_range:function(event){
     var zb = Number(event.currentTarget.dataset.zb);    //选中的网格坐标
     var index = this.data.qipan[zb].zimi_index;        //选中的网格坐标所在字谜的索引
-    if (this.data.toView!='i_'+index){
+    if (this.data.dqzimi_index!=index){
       this.range_glxs(index);                                //高亮显示选中的字迷
       this.question_glxs(index);
       this.setData({ "question_show": true });
@@ -81,6 +121,7 @@ Page({
         this.setData({ "dqzimi_index": index })
          }
       else{
+       
         this.setData({ "question_show": false });
         this.setData({ "dqzimi_index": index });
         this.set_input(index);
@@ -88,6 +129,20 @@ Page({
       }
     } 
   },
+ longpress_range:function(event){
+   var zb = Number(event.currentTarget.dataset.zb);    //选中的网格坐标
+   var index_h = this.data.qipan[zb].zimi_index; 
+   var index_z = this.data.qipan[zb].zimi_index1;
+   var index=(index_h==this.data.dqzimi_index?index_h:index_z)
+   this.range_glxs(index);  
+   this.setData({ "question_show": false });
+   this.setData({ "dqzimi_index": index });
+   this.set_input(index);
+
+ },
+
+
+
 set_input:function(index){
   var input_answer= new Array(this.data.zimi[index].midi.length); 
   var zb =this.data.zimi[index].zb    //字谜的的第一个字的坐标
@@ -145,8 +200,9 @@ range_glxs: function(index) {                               //选中的字谜网
     this.setData({ "qipan": qipan}) 
     
   },
-choose_question:function(event){                                     
-      var index = event.currentTarget.dataset.index;  //选择的字谜索引
+choose_question:function(i){                                     
+  var index = i.currentTarget.dataset.key.zimi_index;  //选择的字谜索引
+  //console.log(i.currentTarget.dataset.key.zimi_index)
       if(index==this.data.dqzimi_index){
         this.setData({ "question_show":false });
         this.set_input(index);
@@ -159,12 +215,28 @@ choose_question:function(event){
   },
 
 
-  question_glxs:function(index){          //选中的字谜谜面突出显示。
-    this.setData({
-      toView: "i_" + index
-    });   
-  },
+  question_glxs:function(index){          //选中的字谜谜面突出显示。     
 
+   
+    if (index <= Number(this.data.question_h.length)){
+      for(let i=0;i<this.data.question_h.length;i++){
+        if(index==this.data.question_h[i].zimi_index){
+           this.setData({
+                  value_h:[i]
+                  }) 
+         }
+      }           
+    }
+    else{
+     for(let i=0;i<this.data.question_z.length;i++){
+        if(index==this.data.question_z[i].zimi_index){
+           this.setData({
+                  value_z:[i]
+                  }) 
+         }
+      } 
+      }          
+  },
 
   tapzimu:function(event){
     var key= String(event.currentTarget.dataset.key);     
@@ -215,15 +287,8 @@ choose_question:function(event){
             zm[this.data.dqzimi_index].jiejue=true;
             this.setData({ "question_show": true });
             this.setData({ "zimi": zm });
-            for(var j=0;j<this.data.zimi.length;j++){
-              if(!this.data.zimi[j].jiejue){
-              this.question_glxs(j);
-              this.range_glxs(j);
-              this.setData({ "dqzimi_index": j });
-              break; 
+            this.setZimi(this.data.zimi);
               }
-            }
-          }
         }
       break; 
       };
