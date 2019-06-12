@@ -239,6 +239,16 @@ choose_question:function(i){
   },
 
   tapzimu:function(event){
+const innerAudioContext = wx.createInnerAudioContext()
+innerAudioContext.autoplay = true
+    innerAudioContext.src = 'tap.wav'
+innerAudioContext.onPlay(() => {
+  console.log('开始播放')
+})
+innerAudioContext.onError((res) => {
+  console.log(res.errMsg)
+  console.log(res.errCode)
+})
     var key= String(event.currentTarget.dataset.key);     
     switch(key){
       case "backspace" :

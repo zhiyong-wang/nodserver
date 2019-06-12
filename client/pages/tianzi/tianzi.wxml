@@ -5,7 +5,7 @@
 <view class="title">得分：200</view>
 <view class="box">
 
-  <view class="box-row" wx:for="{{[0,1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:key="*this" wx:for-item="i">
+<view class="box-row" wx:for="{{[0,1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:key="*this" wx:for-item="i">
       <block wx:for="{{[0,1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:key="*this" wx:for-item="j">
           <view wx:if="{{qipan[i*10+j]==''}}" class="box-item" >{{}}</view> 
           <view wx:elif="{{zimi[qipan[i*10+j].zimi_index].jiejue||zimi[qipan[i*10+j].zimi_index1].jiejue}}" class="{{qipan[i*10+j].css_class}}" >
