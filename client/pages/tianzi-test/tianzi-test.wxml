@@ -1,5 +1,10 @@
 <!--pages/tianzi/tianzi.wxml-->
 <!--wxml-->
+<view>
+<access-modal show='{{showModal}}'  bindcancel="maskCancel" bindconfirm='maskConfirm' >
+  
+</access-modal>
+</view>
 
 <view class="page">
 <view class="title">得分：200 </view>
@@ -7,7 +12,7 @@
 <view class="box">
 
 <view class="side_item"><button class="btn" open-type="share"></button></view>
-<view class="side_item"><image class="user_image"   src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKicPIuZUz27wDz7ANxwdlKJrO5eQOOPUWUj7HyRwGwv5hGzTBBCic1A4SM2FltnsYPbCmJKmTpicVnQ/132"></image></view>
+<view class="side_item"><image class="user_image"  bindtap="showMask" src="{{myavatarUrl}}"></image></view>
 <view class="side_item"></view>
 
 </view>

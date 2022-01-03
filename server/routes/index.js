@@ -54,12 +54,18 @@ router.post('/question_add', controllers.question_add)
 
 router.get('/question_list/:tags', controllers.question_list)
 router.get('/question_list', controllers.question_list)
-
+router.get('/question_list_m', controllers.question_list_m)
 
 
 router.get('/tags_list', controllers.tags_list)
 router.post('/tag_add', controllers.tag_add)
 router.post('/tag_delete', controllers.tag_delete)
+
+router.post('/zimionserver_add', controllers.zimionserver_add)
+
+router.post('/disappearGrids_add', controllers.appearModel_add)
+router.post('/disappearGrids_delete', controllers.appearModel_delete)
+router.get('/disappearGrids_list', controllers.appearModel_list)
 
 
 module.exports = router

@@ -1,7 +1,7 @@
 /**index.wxss**/
 page {
     background: #Ffffff;
-background-image: url('https://7469-tianzi-0nhcd-1256128108.tcb.qcloud.la/iPhone%206-7-8%20%E2%80%93%201.png?sign=369abc901a9114cb28372279290efa6a&t=1560264482');
+background-image: url('https://7469-tianzi-0nhcd-1256128108.tcb.qcloud.la/iPhone%206-7-8%20%E2%80%93%201.png?sign=c9c525189664914f744fe5f864328c5d&t=1561036387');
 background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;
     display: flex;
     flex-direction: column;

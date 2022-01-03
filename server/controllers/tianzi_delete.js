@@ -13,5 +13,8 @@ async function tianzi_delete(ctx, next) {
   await zimimysql(table)
       .where({zimi_id:id})
       .del()
+  await zimimysql("model_appear")
+  .where({model_id:id,model_type:table})
+  .del()
 }
 module.exports = tianzi_delete

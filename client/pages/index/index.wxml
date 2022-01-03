@@ -6,10 +6,10 @@
 <!-- 需要使用 button 来授权登录 -->
 
 
-    <view bindtap="login">
+    <view >
 <!--    <open-data type="userAvatarUrl"   class="userinfo-avatar"></open-data>-->
- <!--       <open-data type="userNickName"  class="userinfo-nickname"></open-data> -->
-<!-- <button wx:if="{{canIUse}}" open-type="getUserInfo" ndgetuserinfo="bindGetUserInfo">授权登录</button><view wx:else>请升级微信版本</view>-->
+     <open-data type="userNickName"  class="userinfo-nickname"></open-data> 
+<!--   <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button><view wx:else>请升级微信版本</view>-->
     </view>
         <!-- 游戏测试 -->
     <view >
@@ -17,6 +17,15 @@
             <text>开始游戏</text>
         </navigator>
     </view>
-
+        <view >
+        <navigator url="../tianzi-test/tianzi-test?id=1" open-type="navigate" class="uploader-text">
+            <text>开始游戏1</text>
+        </navigator>
+    </view>
+   <view >
+        <navigator url="../test/test" open-type="navigate" class="uploader-text">
+            <text>test</text>
+        </navigator>
+    </view>
 
 </view>

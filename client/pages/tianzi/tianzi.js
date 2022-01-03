@@ -15,9 +15,11 @@ Page({
     question_z:[],
     answer:[],
     dqzimi_index:0,   //当前操作的字谜索引
-    toView:0,
     force_index: 0,  //input处焦点的索引
-    value:[0]
+    help:[]=[2,1,1,0,0,0,0,0,0,0],
+    help_image1:"https://7469-tianzi-0nhcd-1256128108.tcb.qcloud.la/02_24.png?sign=0c438e85fd7e1a1bd40bd4248bed365c&t=1566268280",
+    help_image2:"https://7469-tianzi-0nhcd-1256128108.tcb.qcloud.la/image/01_14.png?sign=0c438e85fd7e1a1bd40bd4248bed365c&t=1566268280"
+    
   },
 
   bindChange_h: function (e) {
@@ -38,9 +40,9 @@ Page({
   },
 
 
-
 //--下面的 setzimi 函数，接受若干的数组，按照字谜坐标把字谜放入表格中-- >
   setZimi : function (zimi) {
+   console.log("start")
    let qipan=[];
     for (let i = 0; i < 100; i++) {
            qipan[i] ="";
@@ -52,7 +54,7 @@ Page({
             qipan[j]= {
               zimi_index: i,
               zimi_index1: -1,
-              css_class: "box-item1"
+              css_class: "box-gray"
             };
             }  
         this.data.hx_length = i+1
@@ -65,7 +67,7 @@ Page({
               qipan[j]= {
               zimi_index: i,
               zimi_index1: -1,
-              css_class:"box-item1"                    //对应字谜的数组序号
+              css_class:"box-gray"                    //对应字谜的数组序号
             };
           }
           else {
@@ -74,9 +76,10 @@ Page({
         }
       }
     };
-
+    console.log('qipan')
     this.setData({ "qipan": qipan }); 
     this.setData({ "zimi": zimi });
+    console.log('zimi')
     let question_h=[]
     let question_z=[]    
     for (let j = 0; j < this.data.zimi.length; j++) {
@@ -89,6 +92,7 @@ Page({
       }
       }
     } 
+    console.log('question')
     this.setData({"question_h": question_h,
                     "question_z":question_z})
 
@@ -140,9 +144,6 @@ Page({
    this.set_input(index);
 
  },
-
-
-
 set_input:function(index){
   var input_answer= new Array(this.data.zimi[index].midi.length); 
   var zb =this.data.zimi[index].zb    //字谜的的第一个字的坐标
@@ -183,18 +184,18 @@ range_glxs: function(index) {                               //选中的字谜网
     let j = this.data.zimi[zimi_index].zb;                                   //选中字谜的第一个子的坐标
     let qipan=this.data.qipan;            //因为无法直接单独设置range属性，建立一虚拟qipan变量等于目前棋盘
     for (let i=0;i<100;i++){                               //以前高亮的网格回复正常显示
-      if (qipan[i].css_class=="box-item2")
-        {qipan[i].css_class="box-item1"
+      if (qipan[i].css_class=="box-light")
+        {qipan[i].css_class="box-gray"
         }
     };
     if (this.data.zimi[zimi_index].zongheng == 1){   //如字谜坐标属性为横，设置字谜网格高亮显示
       for (let i =0; i < this.data.zimi[zimi_index].midi.length;i++,j++){
-           qipan[j].css_class= "box-item2" ;
+           qipan[j].css_class= "box-light" ;
       }
     }
     else {
       for (let i = 0; i < this.data.zimi[zimi_index].midi.length; i++,j=j+10) {
-           qipan[j].css_class = "box-item2";
+           qipan[j].css_class = "box-light";
       }
     }   
     this.setData({ "qipan": qipan}) 
@@ -320,28 +321,89 @@ innerAudioContext.onError((res) => {
     } 
   },
 
-
-
-requestZimi:function(){
-  let zimi;
-  wx.cloud.init({
-    env: 'tianzi'
-  })
-  const db = wx.cloud.database()
-  db.collection('tianzi').doc('5cebea3ce7d612d0f0a362c1')
-  .get().then(res => {
-    console.log(res.data)
-    zimi = res.data.data;
+  requestZimi: function (){
+    let zimi
+    wx.cloud.init({
+      env: 'tianzi'
+    })
+  wx.cloud.callFunction({
+    // 要调用的云函数名称
+    name: 'selectzimi',
+    // 传递给云函数的event参数
+    data: {
+    //  x: 1,
+     // y: 2,
+    }
+  }).then(res => {
+    zimi = res.result.data
+    //console.log(zimi)
     for (let i = 0; i < zimi.length; i++) {
       zimi[i].jiejue = false;
     }
     this.setZimi(zimi);
+    wx.removeStorage({
+      key: 'tianzi',
+      success(res) {
+        console.log(res)
+      }
+    })
   }).catch(err => {
-    console.log("error: " + err)
+    console.log("error: " + err) // handle error
+  })
+},
+
+help1:function(){
+  let self=this
+  let selectedzimi = this.data.zimi[this.data.dqzimi_index]
+  console.log(selectedzimi)
+  wx.showModal({
+    title: '帮助',
+    content: '是否显示"'+selectedzimi.question+'"的答案',
+    success(res) {
+      if (res.confirm) {
+        self.data.zimi[self.data.dqzimi_index].jiejue= true
+        self.setZimi(self.data.zimi)
+        console.log('用户点击确定')
+      } else if (res.cancel) {
+        console.log('用户点击取消')
+      }
+    }
   })
 
-
 },
+help2:function () {
+  let self = this
+  wx.showModal({
+    title: '帮助',
+    content: '是否随机解决一个问题？',
+    success(res) {
+      if (res.confirm) {
+        self.suiji_zimi()
+        console.log('用户点击确定')
+      } else if (res.cancel) {
+        console.log('用户点击取消')
+      }
+    }
+  })
+},
+suiji_zimi:function(){
+  let zimi_beixuan=[]
+  for (let i in this.data.zimi){
+    if(!this.data.zimi[i].jiejue){zimi_beixuan.push(i)}
+  }
+  console.log(zimi_beixuan)
+  let index = zimi_beixuan[Math.floor((Math.random() * zimi_beixuan.length))]
+  this.data.zimi[index].jiejue=true
+  wx.showToast({
+    title: '问题"'+this.data.zimi[index].question+'"的答案是"'+this.data.zimi[index].midi+'".',
+    icon: 'none',
+    duration: 3000
+  });
+  this.setZimi(this.data.zimi)
+  
+},
+
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -362,9 +424,11 @@ requestZimi:function(){
   onShow: function () {
 
  // try {
-    let value = wx.getStorageSync('key')
+    console.log('stoge')
+    let value = wx.getStorageSync('tianzi')
     if (value) {
-      this.data = wx.getStorageSync('key')
+      this.data.zimi = wx.getStorageSync('tianzi')
+      console.log(this.data)
       this.setZimi(this.data.zimi);
       // Do something with return value
     }
@@ -374,7 +438,9 @@ requestZimi:function(){
 
    // } catch (e) {
    //}
-
+    wx.showShareMenu({
+      withShareTicket: true
+    })
    
   },
 
@@ -389,9 +455,10 @@ requestZimi:function(){
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    console.log('unload')
     wx.setStorage({
-      key: "key",
-      data: this.data
+      key: "tianzi",
+      data: this.data.zimi
     })  
   },
 
@@ -400,21 +467,26 @@ requestZimi:function(){
    */
   onPullDownRefresh: function () {
     this.requestZimi();
-     wx.stopPullDownRefresh();
-    
+    wx.stopPullDownRefresh();    
   },
-
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
-  
+  onReachBottom: function () {  
   },
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '和我一同填字吧',
+      path: 'pages/index/index'
+    }
   
   }
-})
+  
+  })

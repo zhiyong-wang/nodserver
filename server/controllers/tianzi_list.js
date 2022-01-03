@@ -21,7 +21,7 @@ async function tianzi_list(ctx, next) {
     .orderBy('zimi_id', 'desc');
  
   ctx.state.data = {'tianzi_count':tianzi_count[0].count,'tianzi_list':tianzi_list}
-  console.log(ctx.state.data);
+  //console.log(ctx.state.data);
    
 }
 module.exports = tianzi_list

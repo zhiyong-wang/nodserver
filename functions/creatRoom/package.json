@@ -1,5 +1,5 @@
 {
-  "name": "add",
+  "name": "creatRoom",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "install": "^0.12.2",
-    "wx-server-sdk": "^0.6.0"
+    "wx-server-sdk": "latest"
   }
 }

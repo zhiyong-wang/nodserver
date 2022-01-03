@@ -1,21 +1,36 @@
 {
-	"client": "client/",
-	"svr": "server/",
-	"miniprogramRoot": "client/",
-	"qcloudRoot": "server/",
-	"cloudfunctionRoot": "functions/",
-	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true
-	},
-	"appid": "wx1c034e9511c8f70b",
-	"projectname": "%E5%A1%AB%E5%AD%97",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"libVersion": "2.7.0",
-	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-	"condition": {}
+  "client": "client/",
+  "svr": "server/",
+  "miniprogramRoot": "client/",
+  "qcloudRoot": "server/",
+  "cloudfunctionRoot": "functions/",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "useMultiFrameRuntime": false,
+    "useApiHook": false
+  },
+  "appid": "wx1c034e9511c8f70b",
+  "projectname": "%E5%A1%AB%E5%AD%97",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "libVersion": "2.8.2",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+  "condition": {}
 }
